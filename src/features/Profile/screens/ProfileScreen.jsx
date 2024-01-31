@@ -1,11 +1,12 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text } from "react-native";
+import { CustomSafeAreaView } from "../../../components/CustomSafeAreaView";
 import React from "react";
 
 const ProfileScreen = () => {
   return (
-    <View>
+    <CustomSafeAreaView>
       <Text>ProfileScreen</Text>
-    </View>
+    </CustomSafeAreaView>
   );
 };
 

@@ -1,11 +1,12 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import React from "react";
+import { CustomSafeAreaView } from "../../../components/CustomSafeAreaView";
 
 const SearchScreen = () => {
   return (
-    <View>
+    <CustomSafeAreaView>
       <Text>SearchScreen</Text>
-    </View>
+    </CustomSafeAreaView>
   );
 };
 

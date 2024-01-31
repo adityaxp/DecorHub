@@ -1,14 +1,15 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { CustomSafeAreaView } from "../../../components/CustomSafeAreaView";
 
 const HomeScreen = () => {
   return (
-    <View>
+    <CustomSafeAreaView>
       <Text>HomeScreen</Text>
-    </View>
+    </CustomSafeAreaView>
   );
 };
 
-export default HomeScreen;
-
 const styles = StyleSheet.create({});
+
+export default HomeScreen;

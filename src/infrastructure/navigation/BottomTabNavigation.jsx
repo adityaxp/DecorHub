@@ -1,8 +1,8 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { HomeScreen } from "../../features/Home/screens/HomeScreen";
-import { SearchScreen } from "../../features/Search/screens/SearchScreen";
-import { ProfileScreeen } from "../../features/Profile/screens/ProfileScreen";
+import HomeScreen from "../../features/Home/screens/HomeScreen";
+import SearchScreen from "../../features/Search/screens/SearchScreen";
+import ProfileScreeen from "../../features/Profile/screens/ProfileScreen";
 import { Ionicons } from "@expo/vector-icons";
 import { COLORS } from "../theme/index";
 
@@ -11,6 +11,7 @@ const Tab = createBottomTabNavigator();
 const screenOptions = {
   tabBarShowLable: false,
   tabBarHideOnKeyboard: true,
+  tabBarShowLabel: false,
   headerShown: false,
   tabBarStyle: {
     position: "absolute",
@@ -22,7 +23,7 @@ const screenOptions = {
   },
 };
 
-const BottomTabNavigation = () => {
+export const BottomTabNavigation = () => {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen
@@ -73,5 +74,3 @@ const BottomTabNavigation = () => {
     </Tab.Navigator>
   );
 };
-
-export default BottomTabNavigation;
