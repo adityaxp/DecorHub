@@ -1,8 +1,9 @@
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity, ScrollView } from "react-native";
 import React from "react";
 import { CustomSafeAreaView } from "../../../components/CustomSafeAreaView";
 import styles from "../styles/home.styles";
 import { Ionicons, Fontisto } from "@expo/vector-icons";
+import { Welcome } from "../components/Welcome";
 
 const HomeScreen = () => {
   return (
@@ -21,6 +22,9 @@ const HomeScreen = () => {
           </View>
         </View>
       </View>
+      <ScrollView>
+        <Welcome />
+      </ScrollView>
     </CustomSafeAreaView>
   );
 };

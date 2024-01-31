@@ -7,6 +7,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { BottomTabNavigation } from "./src/infrastructure/navigation/BottomTabNavigation";
 import CartScreen from "./src/features/Cart/screens/CartScreen";
+import SearchScreen from "./src/features/Search/screens/SearchScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -41,6 +42,11 @@ export default function App() {
         <Stack.Screen
           name="CartScreen"
           component={CartScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="SearchScreen"
+          component={SearchScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

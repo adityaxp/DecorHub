@@ -1,11 +1,12 @@
 import { StyleSheet, Text } from "react-native";
 import React from "react";
 import { CustomSafeAreaView } from "../../../components/CustomSafeAreaView";
+import { CustomSearchBar } from "../../../components/CustomSearchBar";
 
 const SearchScreen = () => {
   return (
     <CustomSafeAreaView>
-      <Text>SearchScreen</Text>
+      <CustomSearchBar freezeState={true} />
     </CustomSafeAreaView>
   );
 };
