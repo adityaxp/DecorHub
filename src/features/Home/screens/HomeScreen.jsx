@@ -5,6 +5,8 @@ import styles from "../styles/home.styles";
 import { Ionicons, Fontisto } from "@expo/vector-icons";
 import { Welcome } from "../components/Welcome";
 import { Carousel } from "../../../components/Carousel";
+import { Headings } from "../components/Headings";
+import { ProductRow } from "../../Product/components/ProductRow";
 
 const HomeScreen = () => {
   return (
@@ -26,6 +28,8 @@ const HomeScreen = () => {
       <ScrollView>
         <Welcome />
         <Carousel />
+        <Headings />
+        <ProductRow />
       </ScrollView>
     </CustomSafeAreaView>
   );
