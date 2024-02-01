@@ -25,6 +25,25 @@ const styles = StyleSheet.create({
   details: {
     padding: SIZES.small,
   },
+  productTitle: {
+    fontFamily: "bold",
+    fontSize: SIZES.large,
+    marginBottom: 2,
+  },
+  productSupplier: {
+    fontFamily: "regular",
+    fontSize: SIZES.large,
+    color: COLORS.gray,
+  },
+  productPrice: {
+    fontFamily: "semibold",
+    fontSize: SIZES.medium,
+  },
+  addBtn: {
+    position: "absolute",
+    bottom: SIZES.xSmall,
+    right: SIZES.xSmall,
+  },
 });
 
 export default styles;

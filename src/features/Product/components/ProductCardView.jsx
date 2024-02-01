@@ -1,7 +1,8 @@
 import { View, Image, TouchableOpacity, Text } from "react-native";
 import React from "react";
 import styles from "./style/productCardView.style";
-import { SIZES } from "../../../infrastructure/theme";
+import { COLORS, SIZES } from "../../../infrastructure/theme";
+import { Ionicons } from "@expo/vector-icons";
 
 export const ProductCardView = () => {
   return (
@@ -23,8 +24,11 @@ export const ProductCardView = () => {
             <Text style={styles.productSupplier} numberOfLines={1}>
               Supplier
             </Text>
-            <Text style={styles.productPrice}>Price</Text>
+            <Text style={styles.productPrice}>$100</Text>
           </View>
+          <TouchableOpacity style={styles.addBtn}>
+            <Ionicons name="add-circle" size={35} color={COLORS.primary} />
+          </TouchableOpacity>
         </View>
       </TouchableOpacity>
     </View>
