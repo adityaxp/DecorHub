@@ -6,11 +6,9 @@ import { CustomSearchBar } from "../../../components/CustomSearchBar";
 const SearchScreen = () => {
   return (
     <CustomSafeAreaView>
-      <CustomSearchBar freezeState={true} />
+      <CustomSearchBar freezeState={false} />
     </CustomSafeAreaView>
   );
 };
 
 export default SearchScreen;
-
-const styles = StyleSheet.create({});

@@ -4,6 +4,7 @@ import { CustomSafeAreaView } from "../../../components/CustomSafeAreaView";
 import styles from "../styles/home.styles";
 import { Ionicons, Fontisto } from "@expo/vector-icons";
 import { Welcome } from "../components/Welcome";
+import { Carousel } from "../../../components/Carousel";
 
 const HomeScreen = () => {
   return (
@@ -24,6 +25,7 @@ const HomeScreen = () => {
       </View>
       <ScrollView>
         <Welcome />
+        <Carousel />
       </ScrollView>
     </CustomSafeAreaView>
   );
