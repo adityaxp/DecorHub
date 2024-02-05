@@ -3,11 +3,15 @@ import React from "react";
 import styles from "./style/productCardView.style";
 import { COLORS, SIZES } from "../../../infrastructure/theme";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 export const ProductCardView = () => {
+  const navigation = useNavigation();
   return (
     <View style={{ marginBottom: SIZES.xxLarge + 40 }}>
-      <TouchableOpacity onPress={() => {}}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("ProductDetailsScreen")}
+      >
         <View style={styles.container}>
           <View style={styles.imageContainer}>
             <Image
