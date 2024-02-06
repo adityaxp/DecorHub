@@ -16,7 +16,7 @@ export const ProductCardView = () => {
           <View style={styles.imageContainer}>
             <Image
               source={{
-                uri: "https://d326fntlu7tb1e.cloudfront.net/uploads/b1f6d96d-3297-4270-ba65-657dc2bc0236-fn2.jpg",
+                uri: "https://d326fntlu7tb1e.cloudfront.net/uploads/5d445b91-c01a-4564-8ff8-c27c2b88ea5b-fn7.png",
               }}
               style={styles.image}
             />
