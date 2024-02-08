@@ -1,7 +1,12 @@
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
 import { styles } from "./styles/productDetailsScreen.style";
-import { Ionicons, SimpleLineIcons } from "@expo/vector-icons";
+import {
+  Ionicons,
+  SimpleLineIcons,
+  MaterialCommunityIcons,
+  Fontisto,
+} from "@expo/vector-icons";
 import { COLORS } from "../../../infrastructure/theme";
 
 const ProductDetailsScreen = ({ navigation }) => {
@@ -79,6 +84,25 @@ const ProductDetailsScreen = ({ navigation }) => {
             after a long day or entertaining guests, the Comby Sofa Couch is
             sure to be the centerpiece of your lounging experience.
           </Text>
+        </View>
+        <View style={styles.location}>
+          <View style={{ flexDirection: "row" }}>
+            <Ionicons name="location-outline" size={20} />
+            <Text> Mumbai, India</Text>
+          </View>
+          <View style={{ flexDirection: "row" }}>
+            <MaterialCommunityIcons name="truck-delivery-outline" size={20} />
+            <Text> Free Delivery </Text>
+          </View>
+        </View>
+        <View style={styles.cartRow}>
+          <TouchableOpacity onPress={() => {}} style={styles.cartBtn}>
+            <Text style={styles.cartTitle}>Buy Now</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => {}} style={styles.addCart}>
+            <Fontisto name="shopping-bag" size={22} color={COLORS.lightWhite} />
+          </TouchableOpacity>
         </View>
       </View>
     </View>

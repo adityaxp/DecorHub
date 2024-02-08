@@ -69,6 +69,7 @@ export const styles = StyleSheet.create({
   ratingText: {
     color: COLORS.gray,
     fontFamily: "medium",
+    paddingHorizontal: SIZES.xSmall,
   },
   quantityText: {
     padding: 10,
@@ -88,5 +89,46 @@ export const styles = StyleSheet.create({
     textAlign: "justify",
     marginBottom: SIZES.small,
     marginHorizontal: 20,
+  },
+  location: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: COLORS.secondary,
+    padding: 5,
+    borderRadius: SIZES.large,
+    marginHorizontal: 12,
+  },
+  cartRow: {
+    paddingTop: SIZES.medium,
+    paddingBottom: SIZES.small,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: SIZES.width - 44,
+  },
+
+  cartBtn: {
+    width: SIZES.width * 0.7,
+    backgroundColor: COLORS.primary,
+    padding: SIZES.small / 1.5,
+    borderRadius: SIZES.large,
+    marginLeft: 12,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  cartTitle: {
+    fontFamily: "semibold",
+    fontSize: SIZES.medium,
+    color: COLORS.lightWhite,
+  },
+  addCart: {
+    width: 47,
+    height: 47,
+    borderRadius: 50,
+    margin: SIZES.small,
+    backgroundColor: COLORS.primary,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
