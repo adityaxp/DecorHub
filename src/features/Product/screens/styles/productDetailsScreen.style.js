@@ -123,8 +123,8 @@ export const styles = StyleSheet.create({
     color: COLORS.lightWhite,
   },
   addCart: {
-    width: 47,
-    height: 47,
+    width: 45,
+    height: 45,
     borderRadius: 50,
     margin: SIZES.small,
     backgroundColor: COLORS.primary,
