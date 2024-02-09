@@ -129,7 +129,6 @@ export const styles = StyleSheet.create({
     margin: SIZES.small,
     backgroundColor: COLORS.primary,
     alignItems: "center",
-
     justifyContent: "center",
   },
 });
