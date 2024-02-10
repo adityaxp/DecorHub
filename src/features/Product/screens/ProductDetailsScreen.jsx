@@ -29,7 +29,7 @@ const ProductDetailsScreen = ({ navigation }) => {
           <Ionicons
             name="chevron-back-circle"
             size={30}
-            color={COLORS.secondary}
+            color={COLORS.lightWhite}
           />
         </TouchableOpacity>
 

@@ -31,5 +31,5 @@ export const useFetch = () => {
     fetchData();
   };
 
-  return { data, isLoading, error };
+  return { data, isLoading, error, refetch };
 };

@@ -3,7 +3,7 @@ import React from "react";
 import { COLORS, SIZES } from "../../../infrastructure/theme";
 import { ProductCardView } from "./ProductCardView";
 import styles from "./style/productRow.style";
-import { useFetch } from "../../../services/useFetch";
+import { useFetch } from "../../../services/hooks/useFetch";
 
 export const ProductRow = () => {
   const { data, isLoading, error } = useFetch();
