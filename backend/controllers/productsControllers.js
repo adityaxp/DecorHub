@@ -32,6 +32,22 @@ module.exports = {
 
   searchProduct: async (req, res) => {
     try {
-    } catch (error) {}
+      const result = await Product.aggregate([
+        {
+          $search: {
+            index: "decorhub",
+            text: {
+              query: req.params.key,
+              path: {
+                wildcard: "*",
+              },
+            },
+          },
+        },
+      ]);
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json("Failed to get the product");
+    }
   },
 };
