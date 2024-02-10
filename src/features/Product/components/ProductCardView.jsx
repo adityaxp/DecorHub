@@ -5,7 +5,7 @@ import { COLORS, SIZES } from "../../../infrastructure/theme";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-export const ProductCardView = () => {
+export const ProductCardView = ({ item }) => {
   const navigation = useNavigation();
   return (
     <View style={{ marginBottom: SIZES.xxLarge + 40 }}>
@@ -23,7 +23,7 @@ export const ProductCardView = () => {
           </View>
           <View style={styles.details}>
             <Text style={styles.productTitle} numberOfLines={1}>
-              Product
+              {item.title}
             </Text>
             <Text style={styles.productSupplier} numberOfLines={1}>
               Supplier
