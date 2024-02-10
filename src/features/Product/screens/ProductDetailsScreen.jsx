@@ -8,8 +8,11 @@ import {
   Fontisto,
 } from "@expo/vector-icons";
 import { COLORS } from "../../../infrastructure/theme";
+import { useRoute } from "@react-navigation/native";
 
 const ProductDetailsScreen = ({ navigation }) => {
+  const route = useRoute();
+  const { item } = route.params;
   const [count, setCount] = useState(1);
 
   const increment = () => {
@@ -36,15 +39,15 @@ const ProductDetailsScreen = ({ navigation }) => {
       </View>
       <Image
         source={{
-          uri: "https://d326fntlu7tb1e.cloudfront.net/uploads/5d445b91-c01a-4564-8ff8-c27c2b88ea5b-fn7.png",
+          uri: item.imageUrl,
         }}
         style={styles.image}
       />
       <View style={styles.details}>
         <View style={styles.titleRow}>
-          <Text style={styles.title}>Product </Text>
+          <Text style={styles.title}>{item.title} </Text>
           <View style={styles.priceWrapper}>
-            <Text style={styles.price}>$ 100.89</Text>
+            <Text style={styles.price}>{item.price}</Text>
           </View>
         </View>
         <View style={styles.ratingRow}>
@@ -75,20 +78,12 @@ const ProductDetailsScreen = ({ navigation }) => {
         </View>
         <View style={styles.descriptionWrapper}>
           <Text style={styles.description}>Description</Text>
-          <Text style={styles.descText}>
-            The Comby Sofa Couch seamlessly blends comfort and style, offering a
-            perfect balance of form and function for any living space. With its
-            contemporary design, plush cushions, and versatile configuration
-            options, it invites you to relax in luxurious comfort while
-            effortlessly complementing your home decor. Whether you're unwinding
-            after a long day or entertaining guests, the Comby Sofa Couch is
-            sure to be the centerpiece of your lounging experience.
-          </Text>
+          <Text style={styles.descText}>{item.description}</Text>
         </View>
         <View style={styles.location}>
           <View style={{ flexDirection: "row" }}>
             <Ionicons name="location-outline" size={20} />
-            <Text> Mumbai, India</Text>
+            <Text> {item.product_location}</Text>
           </View>
           <View style={{ flexDirection: "row" }}>
             <MaterialCommunityIcons name="truck-delivery-outline" size={20} />

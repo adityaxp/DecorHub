@@ -10,13 +10,13 @@ export const ProductCardView = ({ item }) => {
   return (
     <View style={{ marginBottom: SIZES.xxLarge + 40 }}>
       <TouchableOpacity
-        onPress={() => navigation.navigate("ProductDetailsScreen")}
+        onPress={() => navigation.navigate("ProductDetailsScreen", { item })}
       >
         <View style={styles.container}>
           <View style={styles.imageContainer}>
             <Image
               source={{
-                uri: "https://d326fntlu7tb1e.cloudfront.net/uploads/5d445b91-c01a-4564-8ff8-c27c2b88ea5b-fn7.png",
+                uri: item.imageUrl,
               }}
               style={styles.image}
             />
@@ -26,9 +26,9 @@ export const ProductCardView = ({ item }) => {
               {item.title}
             </Text>
             <Text style={styles.productSupplier} numberOfLines={1}>
-              Supplier
+              {item.supplier}
             </Text>
-            <Text style={styles.productPrice}>$100</Text>
+            <Text style={styles.productPrice}>{item.price}</Text>
           </View>
           <TouchableOpacity style={styles.addBtn}>
             <Ionicons name="add-circle" size={35} color={COLORS.primary} />

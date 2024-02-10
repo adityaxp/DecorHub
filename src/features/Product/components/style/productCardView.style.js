@@ -31,8 +31,9 @@ const styles = StyleSheet.create({
   },
   productSupplier: {
     fontFamily: "regular",
-    fontSize: SIZES.large,
+    fontSize: SIZES.large - 2,
     color: COLORS.gray,
+    marginBottom: 5,
   },
   productPrice: {
     fontFamily: "semibold",
