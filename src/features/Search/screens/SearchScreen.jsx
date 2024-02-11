@@ -25,7 +25,9 @@ const SearchScreen = () => {
         handleSearch={handleSearch}
       />
       {searchedResults.length === 0 ? (
-        <View style={{ flex: 1 }}>
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
           <Image
             source={require("../../../../assets/images/Pose23.png")}
             style={styles.searchImage}
