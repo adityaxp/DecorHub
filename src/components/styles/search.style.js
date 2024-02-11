@@ -2,6 +2,12 @@ import { StyleSheet } from "react-native";
 import { COLORS, SIZES } from "../../infrastructure/theme";
 
 const styles = StyleSheet.create({
+  constainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignContent: "center",
+  },
+
   searchContainer: {
     flexDirection: "row",
     justifyContent: "center",
@@ -35,6 +41,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: COLORS.primary,
+  },
+  searchImage: {
+    resizeMode: "contain",
+    width: SIZES.width - 100,
+    height: SIZES.height - 300,
   },
 });
 

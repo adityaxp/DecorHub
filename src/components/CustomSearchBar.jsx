@@ -1,12 +1,24 @@
 import { View, TouchableOpacity, TextInput } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import styles from "./styles/search.style";
 import { COLORS, SIZES } from "../infrastructure/theme";
+import { useSearchProduct } from "../services/hooks/useSearchProduct";
 
 export const CustomSearchBar = (props) => {
   const navigation = useNavigation();
+  const [searchKey, setSearchKey] = useState("");
+  const searchedresults = useSearchProduct({ searchKey });
+
+  const handleSearch = () => {
+    try {
+      console.log(searchedresults);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <View style={styles.searchContainer}>
       <TouchableOpacity>
@@ -22,13 +34,17 @@ export const CustomSearchBar = (props) => {
         ) : (
           <TextInput
             style={styles.searchInput}
-            onPressIn={() => {}}
+            value={searchKey}
+            onChangeText={setSearchKey}
             placeholder="What are you looking for?"
           />
         )}
       </View>
       <View>
-        <TouchableOpacity style={styles.searchBtn}>
+        <TouchableOpacity
+          style={styles.searchBtn}
+          onPress={() => handleSearch()}
+        >
           <Feather
             name="arrow-right"
             size={SIZES.xLarge}
