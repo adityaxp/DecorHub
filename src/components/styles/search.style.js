@@ -42,11 +42,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: COLORS.primary,
   },
-  searchImage: {
-    resizeMode: "contain",
-    width: SIZES.width - 100,
-    height: SIZES.height - 300,
-  },
 });
 
 export default styles;

@@ -4,20 +4,9 @@ import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import styles from "./styles/search.style";
 import { COLORS, SIZES } from "../infrastructure/theme";
-import { useSearchProduct } from "../services/hooks/useSearchProduct";
 
 export const CustomSearchBar = (props) => {
   const navigation = useNavigation();
-  const [searchKey, setSearchKey] = useState("");
-  const searchedresults = useSearchProduct({ searchKey });
-
-  const handleSearch = () => {
-    try {
-      console.log(searchedresults);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <View style={styles.searchContainer}>
@@ -34,8 +23,8 @@ export const CustomSearchBar = (props) => {
         ) : (
           <TextInput
             style={styles.searchInput}
-            value={searchKey}
-            onChangeText={setSearchKey}
+            value={props.searchKey}
+            onChangeText={props.setSearchKey}
             placeholder="What are you looking for?"
           />
         )}
@@ -43,7 +32,7 @@ export const CustomSearchBar = (props) => {
       <View>
         <TouchableOpacity
           style={styles.searchBtn}
-          onPress={() => handleSearch()}
+          onPress={() => props.handleSearch()}
         >
           <Feather
             name="arrow-right"
