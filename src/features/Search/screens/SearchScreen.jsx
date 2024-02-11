@@ -3,15 +3,26 @@ import { CustomSafeAreaView } from "../../../components/CustomSafeAreaView";
 import { CustomSearchBar } from "../../../components/CustomSearchBar";
 import { useSearchProduct } from "../../../services/hooks/useSearchProduct";
 import styles from "./styles/searchScreen.style";
-import { View, FlatList, Image } from "react-native";
+import { View, FlatList, Image, Keyboard } from "react-native";
+import { SearchTile } from "../components/SearchTile";
+import { SIZES } from "../../../infrastructure/theme";
+import styled from "styled-components/native";
+import useKeyboardStatus from "../../../components/hooks/useKeyboardStatus";
+
+const CustomView = styled(View)`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  ${({ keyboardIsVisible }) => keyboardIsVisible && `margin-top: 150px`};
+`;
 
 const SearchScreen = () => {
   const [searchKey, setSearchKey] = useState("");
   const searchedResults = useSearchProduct({ searchKey });
+  const keyboardIsVisible = useKeyboardStatus();
 
   const handleSearch = () => {
     try {
-      console.log(searchedResults.length);
     } catch (error) {
       console.error(error);
     }
@@ -25,16 +36,19 @@ const SearchScreen = () => {
         handleSearch={handleSearch}
       />
       {searchedResults.length === 0 ? (
-        <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
+        <CustomView keyboardIsVisible={keyboardIsVisible}>
           <Image
             source={require("../../../../assets/images/Pose23.png")}
             style={styles.searchImage}
           />
-        </View>
+        </CustomView>
       ) : (
-        <FlatList />
+        <FlatList
+          data={searchedResults}
+          keyExtractor={(item) => item._id}
+          renderItem={({ item }) => <SearchTile item={item} />}
+          style={{ marginHorizontal: 12 }}
+        />
       )}
     </CustomSafeAreaView>
   );
