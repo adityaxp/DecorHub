@@ -8,7 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 export const ProductCardView = ({ item }) => {
   const navigation = useNavigation();
   return (
-    <View style={{}}>
+    <View style={{ marginEnd: 5 }}>
       <TouchableOpacity
         onPress={() => navigation.navigate("ProductDetailsScreen", { item })}
       >

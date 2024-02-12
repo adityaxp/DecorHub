@@ -8,7 +8,7 @@ import { useFetch } from "../../../services/hooks/useFetch";
 export const ProductRow = () => {
   const { data, isLoading, error } = useFetch();
   return (
-    <View style={{ marginTop: SIZES.medium, marginLeft: 12 }}>
+    <View style={{ marginTop: SIZES.medium, marginLeft: 12, marginRight: 12 }}>
       {isLoading ? (
         <ActivityIndicator size={SIZES.xxLarge} color={COLORS.primary} />
       ) : error ? (
