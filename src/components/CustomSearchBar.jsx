@@ -32,7 +32,11 @@ export const CustomSearchBar = (props) => {
       <View>
         <TouchableOpacity
           style={styles.searchBtn}
-          onPress={() => props.handleSearch()}
+          onPress={() =>
+            props.freezeState
+              ? navigation.navigate("SearchScreen")
+              : props.handleSearch()
+          }
         >
           <Feather
             name="arrow-right"

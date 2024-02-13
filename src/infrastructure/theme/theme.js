@@ -5,7 +5,7 @@ const COLORS = {
   primary: "#2A4D50",
   secondary: "#DDF0FF",
   tertiary: "#FF7754",
-
+  link: "#0000FF",
   gray: "#83829A",
   gray2: "#C1C0C8",
 

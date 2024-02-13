@@ -47,7 +47,7 @@ const ProductDetailsScreen = ({ navigation }) => {
         <View style={styles.titleRow}>
           <Text style={styles.title}>{item.title} </Text>
           <View style={styles.priceWrapper}>
-            <Text style={styles.price}>{item.price}</Text>
+            <Text style={styles.price}>${item.price}</Text>
           </View>
         </View>
         <View style={styles.ratingRow}>
