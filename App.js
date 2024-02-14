@@ -10,6 +10,8 @@ import SearchScreen from "./src/features/Search/screens/SearchScreen";
 import ProductDetailsScreen from "./src/features/Product/screens/ProductDetailsScreen";
 import { NewArrivals } from "./src/features/Product/screens/NewArrivals";
 import { LoginScreen } from "./src/features/Authentication/screens/LoginScreen";
+import { FavouritesScreen } from "./src/features/Favourites/screens/FavouritesScreen";
+import { Orders } from "./src/features/Orders/screens/Orders";
 
 const Stack = createNativeStackNavigator();
 
@@ -67,6 +69,18 @@ export default function App() {
         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="Orders"
+          component={Orders}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="FavouritesScreen"
+          component={FavouritesScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
