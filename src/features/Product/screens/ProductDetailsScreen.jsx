@@ -9,11 +9,38 @@ import {
 } from "@expo/vector-icons";
 import { COLORS } from "../../../infrastructure/theme";
 import { useRoute } from "@react-navigation/native";
+import AddToCart from "../../../services/hooks/addToCart";
 
 const ProductDetailsScreen = ({ navigation }) => {
   const route = useRoute();
   const { item } = route.params;
   const [count, setCount] = useState(1);
+
+  const [userData, setUserData] = useState(null);
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+
+  useEffect(() => {
+    checkExistingUser();
+  }, []);
+
+  const checkExistingUser = async () => {
+    const id = await AsyncStorage.getItem("id");
+    const useId = `user${JSON.parse(id)}`;
+
+    try {
+      const currentUser = await AsyncStorage.getItem(useId);
+
+      if (currentUser !== null) {
+        const parsedData = JSON.parse(currentUser);
+        setUserData(parsedData);
+        setUserLoggedIn(true);
+      } else {
+        // navigation.navigate('Login')
+      }
+    } catch (error) {
+      console.log("Error retrieving the data:", error);
+    }
+  };
 
   const increment = () => {
     setCount(count + 1);
@@ -95,7 +122,14 @@ const ProductDetailsScreen = ({ navigation }) => {
             <Text style={styles.cartTitle}>Buy Now</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => {}} style={styles.addCart}>
+          <TouchableOpacity
+            onPress={() =>
+              userLoggedIn
+                ? AddToCart(item._id, count)
+                : navigation.navigate("LoginScreen")
+            }
+            style={styles.addCart}
+          >
             <Fontisto name="shopping-bag" size={22} color={COLORS.lightWhite} />
           </TouchableOpacity>
         </View>
