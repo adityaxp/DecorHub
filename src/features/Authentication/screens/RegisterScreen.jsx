@@ -5,7 +5,8 @@ import {
   View,
   Image,
   TouchableOpacity,
-  Alert,
+  ToastAndroid,
+  StyleSheet,
 } from "react-native";
 import React, { useState } from "react";
 import { CustomSafeAreaView } from "../../../components/CustomSafeAreaView";
@@ -14,11 +15,13 @@ import { Button } from "../../../components/Button";
 import styles from "./styles/loginScreen.style";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  MaterialCommunityIcons,
+  Ionicons,
+  EvilIcons,
+} from "@expo/vector-icons";
 import { COLORS } from "../../../infrastructure/theme";
-import { host } from "../../../utils/env";
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { SIZES } from "../../../infrastructure/theme";
 
 const validationSchema = Yup.object().shape({
   password: Yup.string()
@@ -27,68 +30,23 @@ const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email("Provide a valid email address")
     .required("Required"),
+  location: Yup.string()
+    .min(3, "Provide a valid location")
+    .required("Required"),
+  username: Yup.string()
+    .min(5, "Provide a valid username")
+    .required("Required"),
 });
 
-const inValidForm = () => {
-  Alert.alert("Invalid Form", "Please provide all required fields", [
-    {
-      text: "Cancel",
-      onPress: () => {},
-    },
-    {
-      text: "Continue",
-      onPress: () => {},
-    },
-  ]);
-};
-
-export const LoginScreen = ({ navigation }) => {
+export const RegisterScreen = ({ navigation }) => {
   const [loader, setLoader] = useState(false);
-  const [responseData, setResponseData] = useState(null);
   const [input, setInput] = useState({
     email: "",
     password: "",
+    location: "",
   });
   const [obsecureText, setObsecureText] = useState(false);
   const [error, setError] = useState({});
-
-  const login = async (values) => {
-    setLoader(true);
-    try {
-      const endpoint = `http://${host}:3000/api/login`;
-      const data = values;
-      const response = await axios.post(endpoint, data);
-      if (response.status === 200) {
-        setLoader(false);
-        setResponseData(response.data);
-        await AsyncStorage.setItem("id", JSON.stringify(responseData._id));
-        await AsyncStorage.setItem("token", JSON.stringify(responseData.token));
-        await AsyncStorage.setItem(
-          `user${responseData._id}`,
-          JSON.stringify(responseData)
-        );
-        navigation.replace("BottomTabNavigation");
-      } else {
-        Alert.alert("Invalid credentials", "Wrong Password/Email", [
-          {
-            text: "Ok",
-            onPress: () => {},
-          },
-        ]);
-      }
-    } catch (error) {
-      console.log(error);
-      Alert.alert("Error", "Something went wrong!", [
-        {
-          text: "Ok",
-          onPress: () => {},
-        },
-      ]);
-    } finally {
-      setLoader(false);
-    }
-  };
-
   return (
     <ScrollView>
       <CustomSafeAreaView>
@@ -98,13 +56,17 @@ export const LoginScreen = ({ navigation }) => {
           <View>
             <Image
               source={require("../../../../assets/images/bk.png")}
-              style={styles.cover}
+              style={{
+                height: SIZES.height / 6,
+                width: SIZES.width - 60,
+                resizeMode: "contain",
+                marginBottom: SIZES.xxLarge,
+              }}
             />
             <Text style={styles.title}>DécorHub</Text>
             <Formik
               initialValues={{ email: "", password: "" }}
               validationSchema={validationSchema}
-              onSubmit={(values) => login(values)}
             >
               {({
                 handleChange,
@@ -118,10 +80,44 @@ export const LoginScreen = ({ navigation }) => {
               }) => (
                 <View>
                   <View style={styles.wrapper}>
+                    <Text style={styles.label}>Username</Text>
+                    <View
+                      style={styles.inputWrapper(
+                        touched.username ? COLORS.primary : COLORS.secondary
+                      )}
+                    >
+                      <EvilIcons
+                        name="user"
+                        size={20}
+                        color={COLORS.gray}
+                        style={styles.iconStyle}
+                      />
+
+                      <TextInput
+                        placeholder="Enter username"
+                        onFocus={() => {
+                          setFieldTouched("username");
+                        }}
+                        onBlur={() => {
+                          setFieldTouched("username", "");
+                        }}
+                        value={values.username}
+                        onChangeText={handleChange("username")}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        style={{ flex: 1 }}
+                      />
+                    </View>
+                    {touched.username && errors.username && (
+                      <Text style={styles.errorMessage}>{errors.username}</Text>
+                    )}
+                  </View>
+
+                  <View style={styles.wrapper}>
                     <Text style={styles.label}>Email</Text>
                     <View
                       style={styles.inputWrapper(
-                        touched.email ? COLORS.secondary : COLORS.offwhite
+                        touched.email ? COLORS.primary : COLORS.secondary
                       )}
                     >
                       <MaterialCommunityIcons
@@ -152,10 +148,44 @@ export const LoginScreen = ({ navigation }) => {
                   </View>
 
                   <View style={styles.wrapper}>
+                    <Text style={styles.label}>location</Text>
+                    <View
+                      style={styles.inputWrapper(
+                        touched.location ? COLORS.primary : COLORS.secondary
+                      )}
+                    >
+                      <Ionicons
+                        name="location-outline"
+                        size={20}
+                        color={COLORS.gray}
+                        style={styles.iconStyle}
+                      />
+
+                      <TextInput
+                        placeholder="Enter location"
+                        onFocus={() => {
+                          setFieldTouched("location");
+                        }}
+                        onBlur={() => {
+                          setFieldTouched("location", "");
+                        }}
+                        value={values.location}
+                        onChangeText={handleChange("location")}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        style={{ flex: 1 }}
+                      />
+                    </View>
+                    {touched.location && errors.location && (
+                      <Text style={styles.errorMessage}>{errors.location}</Text>
+                    )}
+                  </View>
+
+                  <View style={styles.wrapper}>
                     <Text style={styles.label}>Password</Text>
                     <View
                       style={styles.inputWrapper(
-                        touched.password ? COLORS.secondary : COLORS.offwhite
+                        touched.password ? COLORS.primary : COLORS.secondary
                       )}
                     >
                       <MaterialCommunityIcons
@@ -200,20 +230,25 @@ export const LoginScreen = ({ navigation }) => {
                   </View>
 
                   <Button
-                    loader={loader}
-                    title={"Log In"}
-                    onPress={isValid ? handleSubmit : inValidForm}
+                    title={"Sign Up"}
+                    onPress={() => {
+                      isValid
+                        ? handleSubmit
+                        : ToastAndroid.show(
+                            "Invalid Details Please try again!",
+                            ToastAndroid.SHORT
+                          );
+                    }}
                     isValid={isValid}
                   />
-
                   <View style={styles.signUpWrapper}>
-                    <Text style={styles.regText}>Not a member?</Text>
+                    <Text style={styles.regText}>Already have an account?</Text>
                     <Text
                       style={styles.signUpText}
-                      onPress={() => navigation.navigate("RegisterScreen")}
+                      onPress={() => navigation.navigate("LoginScreen")}
                     >
-                      {" "}
-                      Sign up
+                      {"  "}
+                      Log In
                     </Text>
                   </View>
                 </View>

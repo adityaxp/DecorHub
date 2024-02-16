@@ -12,6 +12,7 @@ import { NewArrivals } from "./src/features/Product/screens/NewArrivals";
 import { LoginScreen } from "./src/features/Authentication/screens/LoginScreen";
 import { FavouritesScreen } from "./src/features/Favourites/screens/FavouritesScreen";
 import { Orders } from "./src/features/Orders/screens/Orders";
+import { RegisterScreen } from "./src/features/Authentication/screens/RegisterScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -81,6 +82,12 @@ export default function App() {
         <Stack.Screen
           name="FavouritesScreen"
           component={FavouritesScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="RegisterScreen"
+          component={RegisterScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
