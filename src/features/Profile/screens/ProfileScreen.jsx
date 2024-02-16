@@ -7,22 +7,34 @@ import {
   MaterialCommunityIcons,
   SimpleLineIcons,
 } from "@expo/vector-icons";
-
-const logout = () => {
-  Alert.alert("Logout", "Are you sure you want to logout?", [
-    {
-      text: "Cancel",
-      onPress: () => console.log("Cancel Pressed"),
-    },
-
-    {
-      text: "Continue",
-      onPress: () => console.log("Log out Pressed"),
-    },
-  ]);
-};
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ProfileMenu = ({ navigation }) => {
+  const userLogout = async () => {
+    const id = await AsyncStorage.getItem("id");
+    const useId = `user${JSON.parse(id)}`;
+    try {
+      await AsyncStorage.multiRemove([useId, "id"]);
+      navigation.replace("BottomTabNavigation");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const logout = () => {
+    Alert.alert("Logout", "Are you sure you want to logout?", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+      },
+
+      {
+        text: "Continue",
+        onPress: () => userLogout(),
+      },
+    ]);
+  };
+
   return (
     <View style={styles.menuWrapper}>
       <TouchableOpacity onPress={() => navigation.navigate("FavouritesScreen")}>
@@ -67,6 +79,30 @@ const ProfileMenu = ({ navigation }) => {
 const ProfileScreen = ({ navigation }) => {
   const [userData, setUserData] = useState(null);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
+
+  useEffect(() => {
+    checkExistingUser();
+  }, []);
+
+  const checkExistingUser = async () => {
+    const id = await AsyncStorage.getItem("id");
+    const useId = `user${JSON.parse(id)}`;
+
+    try {
+      const currentUser = await AsyncStorage.getItem(useId);
+
+      if (currentUser !== null) {
+        const parsedData = JSON.parse(currentUser);
+        setUserData(parsedData);
+        setUserLoggedIn(true);
+      } else {
+        // navigation.navigate('Login')
+      }
+    } catch (error) {
+      console.log("Error retrieving the data:", error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={{ width: "100%" }}>
@@ -78,14 +114,18 @@ const ProfileScreen = ({ navigation }) => {
       <View>
         <View style={styles.profileContainer}>
           <Image
-            source={require("../../../../assets/images/empty-profile.png")}
+            source={
+              userLoggedIn
+                ? require("../../../../assets/images/sunflower.jpg")
+                : require("../../../../assets/images/empty-profile.png")
+            }
             style={styles.profile}
           />
         </View>
         <View style={styles.nameContainer}>
           <Text style={styles.name}>
             {userLoggedIn ? (
-              userData.name
+              userData.username
             ) : (
               <View style={{ flexDirection: "row", alignItems: "baseline" }}>
                 <Text style={styles.name}>New customer?</Text>
@@ -100,7 +140,7 @@ const ProfileScreen = ({ navigation }) => {
             )}
           </Text>
         </View>
-        {userLoggedIn === true ? (
+        {userLoggedIn === false ? (
           <></>
         ) : (
           <ProfileMenu navigation={navigation} />

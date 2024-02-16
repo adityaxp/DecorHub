@@ -22,6 +22,8 @@ import {
 } from "@expo/vector-icons";
 import { COLORS } from "../../../infrastructure/theme";
 import { SIZES } from "../../../infrastructure/theme";
+import { host } from "../../../utils/env";
+import axios from "axios";
 
 const validationSchema = Yup.object().shape({
   password: Yup.string()
@@ -34,39 +36,71 @@ const validationSchema = Yup.object().shape({
     .min(3, "Provide a valid location")
     .required("Required"),
   username: Yup.string()
-    .min(5, "Provide a valid username")
+    .min(3, "Provide a valid username")
     .required("Required"),
 });
-
 export const RegisterScreen = ({ navigation }) => {
   const [loader, setLoader] = useState(false);
-  const [input, setInput] = useState({
-    email: "",
-    password: "",
-    location: "",
-  });
   const [obsecureText, setObsecureText] = useState(false);
-  const [error, setError] = useState({});
+
+  const inValidForm = () => {
+    Alert.alert("Invalid Form", "Please provide all required fields", [
+      {
+        text: "Cancel",
+        onPress: () => {},
+      },
+      {
+        text: "Continue",
+        onPress: () => {},
+      },
+      { defaultIndex: 1 },
+    ]);
+  };
+
+  const registerUser = async (values) => {
+    setLoader(true);
+    try {
+      const endpoint = `http://${host}/api/register`;
+      const data = values;
+
+      const response = await axios.post(endpoint, data);
+
+      if (response.status === 201) {
+        setLoader(false);
+        navigation.replace("LoginScreen");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoader(false);
+    }
+  };
   return (
     <ScrollView>
       <CustomSafeAreaView>
-        <BackButton onPress={() => navigation.goBack()} />
-
         <View style={{ marginHorizontal: 20 }}>
           <View>
+            <BackButton onPress={() => navigation.goBack()} />
             <Image
               source={require("../../../../assets/images/bk.png")}
               style={{
-                height: SIZES.height / 6,
+                height: SIZES.height / 3,
                 width: SIZES.width - 60,
                 resizeMode: "contain",
                 marginBottom: SIZES.xxLarge,
               }}
             />
+
             <Text style={styles.title}>DécorHub</Text>
             <Formik
-              initialValues={{ email: "", password: "" }}
+              initialValues={{
+                email: "",
+                password: "",
+                location: "",
+                username: "",
+              }}
               validationSchema={validationSchema}
+              onSubmit={(values) => registerUser(values)}
             >
               {({
                 handleChange,
@@ -83,18 +117,18 @@ export const RegisterScreen = ({ navigation }) => {
                     <Text style={styles.label}>Username</Text>
                     <View
                       style={styles.inputWrapper(
-                        touched.username ? COLORS.primary : COLORS.secondary
+                        touched.email ? COLORS.secondary : COLORS.offwhite
                       )}
                     >
-                      <EvilIcons
-                        name="user"
+                      <MaterialCommunityIcons
+                        name="face-man-profile"
                         size={20}
                         color={COLORS.gray}
                         style={styles.iconStyle}
                       />
 
                       <TextInput
-                        placeholder="Enter username"
+                        placeholder="Username"
                         onFocus={() => {
                           setFieldTouched("username");
                         }}
@@ -117,7 +151,7 @@ export const RegisterScreen = ({ navigation }) => {
                     <Text style={styles.label}>Email</Text>
                     <View
                       style={styles.inputWrapper(
-                        touched.email ? COLORS.primary : COLORS.secondary
+                        touched.email ? COLORS.secondary : COLORS.offwhite
                       )}
                     >
                       <MaterialCommunityIcons
@@ -148,10 +182,10 @@ export const RegisterScreen = ({ navigation }) => {
                   </View>
 
                   <View style={styles.wrapper}>
-                    <Text style={styles.label}>location</Text>
+                    <Text style={styles.label}>Location</Text>
                     <View
                       style={styles.inputWrapper(
-                        touched.location ? COLORS.primary : COLORS.secondary
+                        touched.location ? COLORS.secondary : COLORS.offwhite
                       )}
                     >
                       <Ionicons
@@ -185,7 +219,7 @@ export const RegisterScreen = ({ navigation }) => {
                     <Text style={styles.label}>Password</Text>
                     <View
                       style={styles.inputWrapper(
-                        touched.password ? COLORS.primary : COLORS.secondary
+                        touched.password ? COLORS.secondary : COLORS.offwhite
                       )}
                     >
                       <MaterialCommunityIcons
@@ -231,16 +265,11 @@ export const RegisterScreen = ({ navigation }) => {
 
                   <Button
                     title={"Sign Up"}
-                    onPress={() => {
-                      isValid
-                        ? handleSubmit
-                        : ToastAndroid.show(
-                            "Invalid Details Please try again!",
-                            ToastAndroid.SHORT
-                          );
-                    }}
+                    onPress={isValid ? handleSubmit : inValidForm}
+                    loader={loader}
                     isValid={isValid}
                   />
+
                   <View style={styles.signUpWrapper}>
                     <Text style={styles.regText}>Already have an account?</Text>
                     <Text
