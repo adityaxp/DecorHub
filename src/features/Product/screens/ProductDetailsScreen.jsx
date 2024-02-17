@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, Image } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { styles } from "./styles/productDetailsScreen.style";
 import {
   Ionicons,
@@ -10,6 +10,7 @@ import {
 import { COLORS } from "../../../infrastructure/theme";
 import { useRoute } from "@react-navigation/native";
 import AddToCart from "../../../services/hooks/addToCart";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ProductDetailsScreen = ({ navigation }) => {
   const route = useRoute();
@@ -18,9 +19,11 @@ const ProductDetailsScreen = ({ navigation }) => {
 
   const [userData, setUserData] = useState(null);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const [fav, setFav] = useState(false);
 
   useEffect(() => {
     checkExistingUser();
+    checkIfAlreadyFav();
   }, []);
 
   const checkExistingUser = async () => {
@@ -42,6 +45,52 @@ const ProductDetailsScreen = ({ navigation }) => {
     }
   };
 
+  const checkIfAlreadyFav = async () => {
+    const id = await AsyncStorage.getItem("id");
+    const favId = `favorites${JSON.parse(id)}`;
+    try {
+      const favObj = await AsyncStorage.getItem(favId);
+      if (favObj !== null) {
+        const favs = JSON.parse(favObj);
+        if (favs[item._id]) {
+          setFav(true);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addToFavorites = async () => {
+    const id = await AsyncStorage.getItem("id");
+    const favId = `favorites${JSON.parse(id)}`;
+    let productId = item._id;
+    let productObj = {
+      title: item.title,
+      id: item._id,
+      supplier: item.supplier,
+      price: item.price,
+      imageUrl: item.imageUrl,
+      product_location: item.product_location,
+    };
+    try {
+      const existingItem = await AsyncStorage.getItem(favId);
+      let favObj = existingItem ? JSON.parse(existingItem) : {};
+      if (favObj[productId]) {
+        delete favObj[productId];
+        console.log("deleted");
+        setFav(false);
+      } else {
+        favObj[productId] = productObj;
+        console.log("Added to fav");
+        setFav(true);
+      }
+      await AsyncStorage.setItem(favId, JSON.stringify(favObj));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const increment = () => {
     setCount(count + 1);
   };
@@ -60,8 +109,16 @@ const ProductDetailsScreen = ({ navigation }) => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => {}}>
-          <Ionicons name="heart" size={30} color={COLORS.primary} />
+        <TouchableOpacity
+          onPress={() =>
+            userLoggedIn ? addToFavorites() : navigation.navigate("LoginScreen")
+          }
+        >
+          <Ionicons
+            name={fav ? "heart" : "heart-outline"}
+            size={30}
+            color={COLORS.red}
+          />
         </TouchableOpacity>
       </View>
       <Image

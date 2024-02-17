@@ -9,9 +9,10 @@ import { Headings } from "../components/Headings";
 import { ProductRow } from "../../Product/components/ProductRow";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const [userData, setUserData] = useState(null);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const [cartCount, setCartCount] = useState("0");
 
   useEffect(() => {
     checkExistingUser();
@@ -23,11 +24,13 @@ const HomeScreen = () => {
 
     try {
       const currentUser = await AsyncStorage.getItem(useId);
+      const getCartCount = await AsyncStorage.getItem("cartCount");
 
       if (currentUser !== null) {
         const parsedData = JSON.parse(currentUser);
         setUserData(parsedData);
         setUserLoggedIn(true);
+        getCartCount !== null ? setCartCount(getCartCount) : setCartCount("0");
       } else {
         // navigation.navigate('Login')
       }
@@ -46,9 +49,15 @@ const HomeScreen = () => {
           </Text>
           <View style={{ alignItems: "flex-end" }}>
             <View style={styles.cartCount}>
-              <Text style={styles.cartNumber}>0</Text>
+              <Text style={styles.cartNumber}>{cartCount}</Text>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                userLoggedIn
+                  ? console.log(userData.username)
+                  : navigation.navigate("LoginScreen")
+              }
+            >
               <Fontisto name="shopping-bag" size={24} />
             </TouchableOpacity>
           </View>
