@@ -1,5 +1,9 @@
 # DécorHub
 
+## App screenshots
+
+<img src="📱 App screenshots/1.jpeg" width="180" height= "320">
+
 ## Tech Stack
 
 - JavaScript
