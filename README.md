@@ -1,10 +1,6 @@
 # DécorHub
 
-## App screenshots
 
-<img src="Images/1.jpeg" width="180" height= "320"> <img src="Images/2.jpeg" width="180" height= "320"> <img src="Images/3.jpeg" width="180" height= "320">
-<img src="Images/4.jpeg" width="180" height= "320"> <img src="Images/5.jpeg" width="180" height= "320"> <img src="Images/6.jpeg" width="180" height= "320">
-<img src="Images/7.jpeg" width="180" height= "320"> <img src="Images/8.jpeg" width="180" height= "320"> <img src="Images/9.jpeg" width="180" height= "320">
 
 ## Tech Stack
 
@@ -38,3 +34,9 @@ Start  App
 ```bash
   npm start or npx expo start
 ```
+
+## App screenshots
+
+<img src="Images/4.jpeg" width="180" height= "320">    <img src="Images/7.jpeg" width="180" height= "320">   <img src="Images/3.jpeg" width="180" height= "320">
+<img src="Images/5.jpeg" width="180" height= "320">    <img src="Images/6.jpeg" width="180" height= "320">    <img src="Images/7.jpeg" width="180" height= "320">
+                          <img src="Images/8.jpeg" width="180" height= "320">   <img src="Images/1.jpeg" width="180" height= "320"> 
