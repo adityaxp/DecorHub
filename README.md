@@ -6,7 +6,6 @@
 
 - JavaScript
 - React Native
-- Expo Router
 - Formik and Yup
 - React Query
 - Axios
